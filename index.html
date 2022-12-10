@@ -1,0 +1,23 @@
+<HTML>
+    <h1>Hello world, from Yosef!</h1>
+    <img src="../Downloads/IVSIcon.png" width="256" 
+    height="256" />
+    <h3> Time is <span id="time"> </span></h3>
+
+    I like these sites:
+    <a href="http://www.youtube.com">YouTube</a> <br>
+    
+    <script>
+        function setCurrentTime() {
+            var datetime = new Date();
+            document.getElementById("time").textContent = 
+                datetime.getHours() + ":" + datetime.getMinutes() + ":" + datetime.getSeconds()
+        }
+
+        setInterval(function() {
+            setCurrentTime();
+        }, 1000);
+
+    </script>
+
+</HTML>
