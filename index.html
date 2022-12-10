@@ -9,7 +9,7 @@
         
     </h2>
     <script>
-       <h2> function setCurrentTime() {
+        function setCurrentTime() {
             var datetime = new Date();
             document.getElementById("time").textContent = 
                 datetime.getHours() + ":" + datetime.getMinutes() + ":" + datetime.getSeconds()
@@ -17,7 +17,7 @@
 
         setInterval(function() {
             setCurrentTime();
-        }, 1000);<h2>
+        }, 1000);
 
     </script>
 
