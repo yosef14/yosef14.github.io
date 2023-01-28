@@ -1,0 +1,56 @@
+<HTML>
+	<body >
+    <meta charset="utf-8">
+    <h1>Guess game</h1>
+	<form name="guess_form">
+		<label>Enter number:</label>
+		<input name="guess_num" type="text">
+	</form>
+	<img name="bigger_img" width="0" src="guess_bigger.png"/>
+	<img name="smaller_img" width="0" src="guess_smaller.png"/>
+	</body>
+<script>
+
+	var guess_form = document.guess_form
+	guess_form.addEventListener('submit', guess);
+
+	var num_to_guess = 42
+	var num_guesses = 0
+	window.onload = function() {
+		num_to_guess = Math.floor(Math.random() * 100)
+	}
+
+	function guess(event)
+	{
+		event.preventDefault();
+
+		var num = parseInt(guess_form.guess_num.value)
+		guess_form.guess_num.value = ""
+		if (isNaN(num)) {
+			// not a valid number
+			return
+		}
+		
+		num_guesses = num_guesses + 1
+		if (num > num_to_guess) {
+			//alert("The number is smaller :(")
+			document.smaller_img.width="100"
+			document.bigger_img.width="0"
+		} else if (num < num_to_guess) {
+//			alert("The number is bigger :(")
+			document.smaller_img.width="0"
+			document.bigger_img.width="100"
+		} else {
+			//alert("Good guess !!! :) !!!")
+			document.body.style.backgroundImage = "url('firework-2.gif')"
+			document.smaller_img.width="0"
+			document.bigger_img.width="0"
+			guess_form.guess_num.value = "👍 you did it in " + num_guesses + " guesses"
+			guess_form.guess_num.style.backgroundColor = '#000000'
+			guess_form.guess_num.style.color = 'yellow'
+		}
+	}
+
+
+</script>
+</HTML>
