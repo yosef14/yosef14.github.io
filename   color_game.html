@@ -1,0 +1,162 @@
+<html>
+    <meta charset="utf-8">
+
+<style>
+.red_square {
+    position: absolute; 
+    top: 0; 
+    left:0; 
+    width:100; 
+    height:100; 
+    background-color: red;
+}    
+.apple {
+    position: absolute; 
+    top: 0; 
+    left:0; 
+    width:25; 
+    height:25; 
+    background-color: rgba(102, 51, 153, 0);
+}
+</style>
+<div class="red_square" id="redSq">    
+</div>
+
+<div class="red_square" style="left:200;background-color: cadetblue;" id="cadetSq">    
+</div>
+
+<div class="apple" id="apple">
+    🍎    
+</div>
+
+<p id="score">
+    Score: 0
+</p>
+
+
+
+
+
+<script>
+    var redSqX = 100
+    var redSqY = 0
+    var redStep = 1
+    var cadetStep = 10
+    var cadetSqX = 200
+    var cadetSqY = 200 
+
+    var appleX = 0
+    var appleY = 0
+
+    var score = 0
+
+    let redSq = document.getElementById("redSq")
+    let cadetSq = document.getElementById("cadetSq")
+    let appleSq = document.getElementById("apple")
+
+    redSq.style.top = redSqY
+    redSq.style.left = redSqX
+    cadetSq.style.top = cadetSqY
+    cadetSq.style.left = cadetSqX
+    
+
+    moveApple()
+    setInterval(moveRedSq, 100)
+
+    function moveApple() {
+         appleX = Math.floor(Math.random() * 600)
+         appleY = Math.floor(Math.random() * 500)
+         appleSq.style.top = appleY
+         appleSq.style.left = appleX
+    }
+
+    function moveRedSq() {
+        
+        if (cadetSqX > redSqX) {
+            redSqX = redSqX + redStep
+        } else if ( cadetSqX < redSqX){
+            redSqX = redSqX - redStep
+        }
+
+        if (cadetSqY > redSqY) {
+            redSqY = redSqY + redStep
+        } else if ( cadetSqY < redSqY) {
+            redSqY = redSqY - redStep
+        }
+
+        redSq.style.left = redSqX +'px'
+        redSq.style.top = redSqY +'px'
+
+        if (didCadetEatApple()) {
+            score = score + 1
+            scoreElement = document.getElementById("score")
+            scoreElement.innerHTML = "Score: " + score;
+            if (score == 10 ) {
+            redStep = redStep * 2
+            }
+            if (score == 15 ) {
+            redStep = redStep * 2
+            }
+            if (score == 20 ) {
+                redStep = redStep * 2
+            }
+            if (score == 25 ) {
+                redStep = redStep * 2
+            }
+            if (score == 30 ) {
+                redStep = redStep * 2
+            }
+            if (score == 2 ) {
+                cadetStep = cadetStep * 3
+            }
+            moveApple()
+        }
+        if (didRedEatCadet()) {
+            alert ("YOU LOSE!! ")
+            window.location.reload();
+        }
+    }
+
+    function didCadetEatApple() {
+        appleX, appleY, cadetSqX, cadetSqY
+        if (appleX > cadetSqX - 25 && appleX < cadetSqX + 100) {
+            if (appleY > cadetSqY - 25 && appleY < cadetSqY + 100) {
+                return true
+            }
+        }
+        return false
+    }
+
+    function didRedEatCadet() {
+        if (cadetSqX > redSqX - 100 && cadetSqX < redSqX + 100) {
+            if (cadetSqY > redSqY - 100 && cadetSqY < redSqY + 100) { 
+                return true
+            }
+        }
+        return false
+    }
+
+
+
+window.addEventListener('keydown', (event) => {
+  switch (event.key) {
+ 	case 'ArrowLeft':
+    cadetSqX = cadetSqX - cadetStep
+    break;
+ 	case 'ArrowRight':
+     cadetSqX = cadetSqX + cadetStep
+    
+ 	break;
+ 	case 'ArrowUp':
+     cadetSqY = cadetSqY - cadetStep
+  		break;
+ 	case 'ArrowDown':
+     cadetSqY = cadetSqY + cadetStep
+  		break;
+  }
+  cadetSq.style.left = cadetSqX +'px'
+  cadetSq.style.top = cadetSqY +'px'
+
+})
+</script>
+</html>
