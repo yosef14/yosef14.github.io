@@ -1,5 +1,84 @@
 <html>
-  <head>
-    skfjkdj
-  </head>
+  <p id="head">
+  Text1
+  </p>
+
+  <span style="background-color: rgb(209, 227, 179); cursor:grab">  Text2 </span>
+  <p>
+  <a href="#par6"> my precious link </a>
+  </p>
+
+  <p>
+    Paragraph 1
+  </p>
+
+  <p>
+    Paragraph 2
+  </p>
+  
+  <p>
+    Paragraph 3
+  </p>
+  
+  <p>
+    Paragraph 4
+  </p>
+  
+  <p>
+    Paragraph 5
+  </p>
+  <p id="par6">
+    Paragraph 6
+  </p>
+  
+<a href="#head">back to top</a>
+
+<div id="div1" style="position: absolute; top: 0; left:0; width:100; height:100; background-color: red;">
+  <img width="100" height="100" src="https://static.wikia.nocookie.net/lego/images/f/fd/75334_Darth_Vader.png/revision/latest?cb=20220609063600"/>
+</div>
+<script>
+  let v = document.getElementById("div1")
+  var nRight = 0
+  var nleft = 0
+  window.addEventListener('keydown', (event) => {
+  switch (event.key) {
+ 	case 'ArrowLeft':
+   v.style.left = parseInt(v.style.left) - 5 + 'px'
+   nleft = nleft + 1
+   if (nleft == 5) {
+      v.style.width = parseFloat(v.style.width) * 2
+      v.style.height = parseFloat(v.style.height) * 2 
+      nleft = 0
+   }
+
+   break;
+ 	case 'ArrowRight':
+    v.style.left = parseInt(v.style.left) + 5 + 'px'
+    nRight = nRight + 1
+    if (nRight == 5) {
+      v.style.width = parseFloat(v.style.width) / 2
+      v.style.height = parseFloat(v.style.height) / 2
+      nRight = 0
+
+
+
+    }
+ 		break;
+ 	case 'ArrowUp':
+   v.style.top = parseInt(v.style.top) - 5 + 'px';
+
+ 		break;
+ 	case 'ArrowDown':
+    //alert("key down")
+ 		v.style.top = parseInt(v.style.top) + 5 + 'px';
+ 		break;
+  case ' ':
+    v.style.width = "100"
+    v.style.height = "100"
+    break;
+ 	default:
+ 	//	alert("Only Arrow Keys Are Allowed!");
+    }
+});
+</script>
 </html>

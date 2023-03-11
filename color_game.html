@@ -1,0 +1,240 @@
+<html>
+    <img id="areaImg" width="1000" height="600" src="https://www.reshet-yeruka.net/wp-content/uploads/2023/01/עץ-בשדה-Image-by-wirestock-on-Freepik.jpg" />
+    <meta charset="utf-8">
+<style>
+.red_square {
+    position: absolute; 
+    top: 0;
+    left:0; 
+    width:75; 
+    height:75; 
+    background-color: rgb(237, 2, 2);
+}    
+
+.cadet_square {
+    position: absolute; 
+    top: 0;
+    left:0; 
+    width:50; 
+    height:50; 
+    background-color: rgb(237, 2, 2);
+} 
+
+.apple {
+    position: absolute; 
+    top: 0; 
+    left:0; 
+    width:25; 
+    height:25; 
+    background-color: rgba(102, 51, 153, 0);
+}
+</style>
+<div class="red_square" id="redSq">    
+</div>
+
+<div class="cadet_square" style="left:200;background-color: cadetblue;" id="cadetSq">    
+</div>
+
+<div class="apple" id="apple">
+    🍎    
+</div>
+
+<p id="score">
+    Score: 0
+</p>
+
+<script>
+    var redSqX = 100
+    var redSqY = 0
+    var redStep = 1
+    var cadetStep = 10
+    var cadetSqX = 200
+    var cadetSqY = 200 
+    var cadetWidth
+    var cadetHeight
+    var appleWidth
+    var appleHeight
+    var redWidth
+    var redHeight
+
+    var cadetTargetX = null
+    var cadetTargetY = null
+
+    var appleX = 0
+    var appleY = 0
+
+    var score = 0
+
+    var areaWidth = 1000
+    var areaHeight = 600
+
+    let redSq = document.getElementById("redSq")
+    let cadetSq = document.getElementById("cadetSq")
+    let appleSq = document.getElementById("apple")
+    let areaImg = document.getElementById("areaImg")
+    redSq.style.top = redSqY
+    redSq.style.left = redSqX
+    cadetSq.style.top = cadetSqY
+    cadetSq.style.left = cadetSqX
+
+    
+    areaImg.style.width = areaWidth
+    areaImg.style.height = areaHeight
+
+    updateSizes()
+    moveApple()
+    setInterval(moveRedSq, 100)
+
+    function updateSizes() {
+        appleWidth = parseInt(appleSq.clientWidth)
+        appleHeight = parseInt(appleSq.clientHeight)
+        cadetWidth = parseInt(cadetSq.clientWidth)
+        cadetHeight = parseInt(cadetSq.clientHeight)
+        redWidth = parseInt(redSq.clientWidth)
+        redHeight = parseInt(redSq.clientHeight)
+    }
+
+    function moveApple() {
+         appleX = Math.floor(Math.random() * areaWidth)
+         appleY = Math.floor(Math.random() * areaHeight)
+         appleSq.style.top = appleY
+         appleSq.style.left = appleX
+    }
+
+    function moveRedSq() {
+        updateSizes()
+
+
+        if (cadetTargetX !== null) {
+            if (cadetSqX > cadetTargetX) {
+                cadetSqX = cadetSqX - cadetStep
+            }
+            if (cadetSqY > cadetTargetY) {
+                cadetSqY = cadetSqY - cadetStep
+            }
+
+            if (cadetSqX < cadetTargetX) {
+                cadetSqX = cadetSqX + cadetStep
+            }
+            if (cadetSqY < cadetTargetY) {
+                cadetSqY = cadetSqY + cadetStep
+            }
+            updateCadetPos()
+
+        }
+
+        if (cadetSqX > redSqX) {
+            redSqX = redSqX + redStep
+        } else if ( cadetSqX < redSqX){
+            redSqX = redSqX - redStep
+        }
+
+        if (cadetSqY > redSqY) {
+            redSqY = redSqY + redStep
+        } else if ( cadetSqY < redSqY) {
+            redSqY = redSqY - redStep
+        }
+
+        if(redSqX > areaWidth - redWidth) {
+            redSqX = areaWidth - redWidth
+        }
+    
+        if(redSqY > areaHeight - redHeight) {
+            redSqY = areaHeight - redHeight
+        }
+
+        redSq.style.left = redSqX +'px'
+        redSq.style.top = redSqY +'px'
+
+        if (didCadetEatApple()) {
+            score = score + 1
+            scoreElement = document.getElementById("score")
+            scoreElement.innerHTML = "Score: " + score;
+            if (score == 10 ) {
+            redStep = redStep * 2
+            }
+            if (score == 15 ) {
+            redStep = redStep * 2
+            }
+            if (score == 20 ) {
+                redStep = redStep * 2
+            }
+            if (score == 25 ) {
+                redStep = redStep * 2
+            }
+            if (score == 30 ) {
+                redStep = redStep * 2
+            }
+            if (score == 5) {
+                cadetStep = cadetStep * 3
+            }
+            moveApple()
+        }
+        if (didRedEatCadet()) {
+            alert ("YOU LOSE!! ")
+            window.location.reload();
+        }
+    }
+
+    function didCadetEatApple() {
+        updateSizes()
+        if (appleX > cadetSqX - appleWidth && appleX < cadetSqX + cadetWidth) {
+            if (appleY > cadetSqY - appleHeight && appleY < cadetSqY + cadetHeight) {
+                return true
+            }
+        }
+        return false
+    }
+
+    function didRedEatCadet() {
+        updateSizes()
+
+        if (cadetSqX > redSqX - cadetWidth && cadetSqX < redSqX + redWidth) {
+            if (cadetSqY > redSqY - cadetHeight && cadetSqY < redSqY + redHeight) { 
+                return true
+            }
+        }
+        return false
+    }
+
+
+
+    function updateCadetPos() 
+    {
+        cadetSq.style.left = cadetSqX +'px'
+        cadetSq.style.top = cadetSqY +'px'
+    }
+
+    document.addEventListener("click", (event) => {
+        cadetTargetX = event.clientX - cadetWidth / 2
+        cadetTargetY = event.clientY - cadetHeight / 2
+    });
+
+
+
+
+    window.addEventListener('keydown', (event) => {
+        cadetTargetX = null
+        switch (event.key) {
+            case 'ArrowLeft':
+            cadetSqX = cadetSqX - cadetStep
+            break;
+            case 'ArrowRight':
+            cadetSqX = cadetSqX + cadetStep
+            
+            break;
+            case 'ArrowUp':
+            cadetSqY = cadetSqY - cadetStep
+                break;
+            case 'ArrowDown':
+            cadetSqY = cadetSqY + cadetStep
+                break;
+        }
+
+    updateCadetPos()
+    
+    })
+
+
+</script>
+</html>
