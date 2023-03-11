@@ -95,8 +95,8 @@
     }
 
     function moveApple() {
-         appleX = Math.floor(Math.random() * areaWidth)
-         appleY = Math.floor(Math.random() * areaHeight)
+         appleX = Math.floor(Math.random() * (areaWidth - 3*appleWidth))
+         appleY = Math.floor(Math.random() * (areaHeight - 3*appleHeight))
          appleSq.style.top = appleY
          appleSq.style.left = appleX
     }
