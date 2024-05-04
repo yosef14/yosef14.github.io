@@ -6,11 +6,43 @@
 		<label>Enter number:</label>
 		<input name="div_num" type="text">
 	</form>
+	<p id="result_txt"></p>
 	</body>
 <script>
 
 	var divs_form = document.divs_form
+	divs_form.addEventListener('submit', calc_divs);
+	function calc_divs(event)
+	{
+		event.preventDefault();
 
+		var result_txt = ""
+		var n = parseInt(divs_form.div_num.value)
+
+		var s = 1
+		result_txt += "1"
+		var mehalkGadol = n
+		var m = 2
+		while (m < mehalkGadol) {
+    		var x = n/m
+			var x_ = Math.floor(x)
+    		var r = x - x_
+    		if (r > 0) {
+        		//print("lo mithalek")
+			} else {
+        		s = s + m
+        		result_txt += "," + m
+        		result_txt += "," + x_
+        		s = s + x_
+        		mehalkGadol = x
+			}
+    		m = m + 1
+		}
+		if (s == n) {
+			result_txt += ": PERFECT NUMBER 😲😲"
+		}
+		document.getElementById("result_txt").innerHTML = result_txt;
+	}
 
 </script>
 </HTML>
